@@ -3,9 +3,10 @@ var jwt = require('jsonwebtoken')
 const methods = {}
 
 methods.verifyLogin = function(req,res, next){
-  jwt.verify(req.headers.token, process.env.SECRET, function(err, decoded){
+  console.log(req.body);
+  jwt.verify(req.headers.token, 'secret', function(err, decoded){
     if(!err){
-      if(decoded.role == 'admin' || decoded.id == req.params.id){
+      if(decoded.username == req.params.username){
         next()
       }
       else{
@@ -13,7 +14,7 @@ methods.verifyLogin = function(req,res, next){
       }
     }
     else {
-      res.send(err)
+      res.send('Anda tidak punya Akses')
     }
   })
 }
