@@ -1,24 +1,13 @@
-const express = require('express');
-const app = express()
-const mongoose = require('mongoose')
-require('dotenv').config();
-
+var express = require('express')
+var app = express()
 var bodyParser = require('body-parser')
-var users = require('./routes/users');
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended : false}))
 
-mongoose.connect('mongodb://localhost/triple-x', (err)=>{
-  if(err){
-    console.log(err);
-  } else {
-    console.log('Connection Success');
-  }
+var appRecent = require('./routes/twatt_recent')
+
+app.use('/timeline', appRecent )
+
+app.listen(3000, ()=>{
+     console.log('on ');
 })
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.use('/api/users', users);
-
-
-app.listen(3000)
-module.exports = app;
