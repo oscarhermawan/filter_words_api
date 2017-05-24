@@ -3,6 +3,8 @@ var bcrypt  = require('bcrypt')
 var jwt = require('jsonwebtoken')
 var badwordsDictionary = require('../helper/dictionary.js')
 var Filter = require('bad-words')
+var OAuth = require('oauth');
+require('dotenv').config()
 const saltRounds = 10;
 
 const methods = {}
@@ -53,13 +55,39 @@ methods.signIn = function (req,res) {
 }//LOCAL LOGIN
 
 //filter
-methods.badwords = function(req, res) {
-  var filter = new Filter()
+methods.badwords = function(req, res, next) {
+  var filter = new Filter({placeHolder: 'x'})
   filter.addWords(badwordsDictionary)
   var words = filter.clean(req.body.kata)
-  res.send(words)
+  req.body.text = words
+  next()
 }
 //filter
+
+methods.updateStatusTwitter = function(req,res){
+  console.log(req.body);
+      var oauth = new OAuth.OAuth(
+           'https://api.twitter.com/oauth/request_token',
+           'https://api.twitter.com/oauth/access_token',
+           process.env.API_KEY, //Consumer Key (API Key)
+           process.env.API_SECRET, //Consumer Secret (API Secret)
+           '1.0A',
+           null,
+           'HMAC-SHA1'
+         );
+         oauth.post(
+         'https://api.twitter.com/1.1/statuses/update.json?status=' + req.body.text,
+         process.env.USER_ACCEES_TOKEN, //test user token //Access Token
+         process.env.USER_SECRET_TOKEN, //test user secret //Access Token Secret
+         req.body.text,
+         "text",
+         function (err, data){
+            // console.log('halooo ==>',words);
+           if (err) console.error(err);
+           console.log(require('util').inspect(data));
+           res.send(JSON.parse(data));
+         });
+}
 
 
 module.exports = methods

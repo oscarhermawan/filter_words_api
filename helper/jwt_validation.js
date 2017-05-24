@@ -6,7 +6,7 @@ methods.verifyLogin = function(req,res, next){
   console.log(req.body);
   jwt.verify(req.headers.token, 'secret', function(err, decoded){
     if(!err){
-      if(decoded.username == req.params.username){
+      if(decoded.username){
         next()
       }
       else{

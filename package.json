@@ -21,10 +21,12 @@
     "bad-words": "^1.5.1",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "jsonwebtoken": "^7.4.1",
     "mongoose": "^4.10.2",
+    "oauth": "^0.9.15",
     "passport-local": "^1.0.0"
   }
 }
