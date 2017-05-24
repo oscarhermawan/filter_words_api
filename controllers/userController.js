@@ -1,6 +1,8 @@
 var db = require('../models/user');
 var bcrypt  = require('bcrypt')
 var jwt = require('jsonwebtoken')
+var badwordsDictionary = require('../helper/dictionary.js')
+var Filter = require('bad-words')
 const saltRounds = 10;
 
 const methods = {}
@@ -50,6 +52,14 @@ methods.signIn = function (req,res) {
   })
 }//LOCAL LOGIN
 
+//filter
+methods.badwords = function(req, res) {
+  var filter = new Filter()
+  filter.addWords(badwordsDictionary)
+  var words = filter.clean(req.body.kata)
+  res.send(words)
+}
+//filter
 
 
 module.exports = methods

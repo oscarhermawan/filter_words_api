@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/oscarhermawan/filter_words_api#readme",
   "dependencies": {
+    "bad-words": "^1.5.1",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
