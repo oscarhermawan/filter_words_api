@@ -12,5 +12,5 @@ module.exports = [
   'fvck',
   'fak',
   'idiot',
-  'gobl0k'
+  'gobl0k','asu','4su','a su','a s u','as u'
 ];

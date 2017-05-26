@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <div class="container">
+    <form id="form-tweet" action="" method="post">
+      <h3>Tweet</h3>
+      <fieldset>
+        <textarea placeholder="Type your tweet here...." tabindex="5" required></textarea>
+      </fieldset>
+      <fieldset>
+        <button name="submit" type="submit" id="form-tweet-submit" data-submit="...Sending">Post</button>
+      </fieldset>
+    </form>
+  </div>
+  </body>
+</html>
