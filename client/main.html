@@ -87,6 +87,7 @@
           .then((response)=>{
             // console.log('HASILNYA RESPONSE',response);
             self.idtweet = response.data.id_str
+            self.text = ''
           })
           .catch((err)=>{
             console.log(err);
