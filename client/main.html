@@ -6,6 +6,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.3/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.1/axios.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <div id="app">
@@ -34,6 +35,27 @@
              </div>
 
            </nav>
+            <div class="container">
+             <form id="form-tweet" action="">
+              <h3>Tweet Something</h3>
+              <fieldset>
+                <textarea v-model="text" placeholder="Type your tweet here...." tabindex="5"></textarea>
+              </fieldset>
+              <fieldset>
+                <button name="submit" type="submit" id="form-tweet-submit" @click="postTwitter">Post</button>
+              </fieldset>
+            </br>
+              <h3>Delete Tweet by Id</h3>
+              <fieldset>
+                <input type="text" v-model="idtweet"  placeHolder="type your id tweet" value="">
+              </fieldset>
+              <fieldset>
+                <button name="submit" type="submit" id="form-tweet-submit" @click="deleteTwitter">Delete Tweet</button>
+              </fieldset>
+             </form>
+
+           </div>
+
 
 
     		</div>
@@ -50,13 +72,36 @@
     var app = new Vue({
       el: '#app',
       data: {
-        text:''
+        text:'',
+        idtweet:''
       },
       methods:{
         logout() {
           window.localStorage.removeItem('token')
           window.location.href = "/"
+        },
+        postTwitter(){
+          console.log('test', localStorage.getItem('token'));
+          axios.post('http://localhost:3000/api/users/twitter', {token:localStorage.getItem('token'), kata:this.text})
+          .then((response)=>{
+            console.log(this.text);
+            console.log(response);
+          })
+          .catch((err)=>{
+            console.log(err);
+          })
+        },
+        deleteTwitter(){
+          axios.post(`http://localhost:3000/api/users/twitter/${this.idtweet}`, {token:localStorage.getItem('token')} )
+          .then((response)=>{
+            console.log(this.text);
+            console.log(response);
+          })
+          .catch((err)=>{
+            console.log(err);
+          })
         }
+
       },
       created: function () {
         if(localStorage.getItem('token') == null){

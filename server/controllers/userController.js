@@ -65,7 +65,7 @@ methods.badwords = function(req, res, next) {
 //filte
 
 methods.updateStatusTwitter = function(req,res){
-  console.log(req.body);
+  console.log('masuk controller',req.body);
       var oauth = new OAuth.OAuth(
            'https://api.twitter.com/oauth/request_token',
            'https://api.twitter.com/oauth/access_token',

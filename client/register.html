@@ -19,17 +19,25 @@
         <div class="col-md-4">
         <!-- Centered Pills -->
         <ul class="nav nav-pills nav-justified">
-          <li class="active"><a href="#">Login</a></li>
-          <li><a href="register.html">Register</a></li>
+          <li><a href="index.html">Login</a></li>
+          <li class="active"><a href="#">Register</a></li>
           <div class="tab-content">
             <div class="tab-pane active" id="panel-486118">
               <p>
                 <div class="form-group">
 
                 <label for="exampleInputEmail1">
+                  Name
+                </label>
+                <input type="text" class="form-control" id="exampleInputEmail1" v-model="name" />
+                </div>
+
+                <div class="form-group">
+
+                <label for="exampleInputEmail1">
                   Username
                 </label>
-                <input type="email" class="form-control" id="exampleInputEmail1" v-model="username" />
+                <input type="text" class="form-control" id="exampleInputEmail1" v-model="username" />
                 </div>
 
                 <div class="form-group">
@@ -40,8 +48,8 @@
                   <input type="password" class="form-control" id="exampleInputPassword1" v-model="password"/>
                 </div>
 
-                <button class="btn btn-default" @click="onLogin">
-                  Login
+                <button class="btn btn-default" @click="register">
+                  Register
                 </button>
               </p>
             </div>
@@ -67,28 +75,22 @@
       data: {
         username:'',
         password:'',
-        message: 'You loaded this page on ' + new Date()
+        name:''
       },
       methods:{
-        onLogin() {
+        register() {
           let self = this
-          axios.post('http://localhost:3000/api/users/signin', {
+          axios.post('http://localhost:3000/api/users/signup', {
             username: self.username,
-            password: self.password
+            password: self.password,
+            name:self.name
           })
           .then((response) => {
-            console.log(response.data);
-            if (response.data.hasOwnProperty('err')) {
-              self.message = response.data.err.errmsg
-            } else {
-              self.message = response.data.message
-              console.log(response.data);
-              localStorage.setItem('token', response.data)
-              window.location.href = "/main.html"
-            }
+            alert('register mision has been completed')
+            window.location.href = "/main.html"
           })
           .catch(err => {
-            alert('error login')
+            alert('error register')
             console.log(err);
           })
         }

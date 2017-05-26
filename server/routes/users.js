@@ -6,7 +6,7 @@ var jwt = require('../helper/jwt_validation')
 router.get('/', api.getAllUsers)
 router.post('/signup', api.createUser)
 router.post('/signin', api.signIn)
-router.delete('/twitter/:idstatus', jwt.verifyLogin, api.deleteStatusTwitter)
+router.post('/twitter/:idstatus', jwt.verifyLogin, api.deleteStatusTwitter)
 router.post('/twitter', jwt.verifyLogin, api.badwords, api.updateStatusTwitter)
 
 // router.delete('/:id', jwt.verifyAdmin, api.deleteUser)
