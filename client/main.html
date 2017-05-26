@@ -36,13 +36,13 @@
 
            </nav>
             <div class="container">
-             <form id="form-tweet" action="">
+             <form id="form-tweet">
               <h3>Tweet Something</h3>
               <fieldset>
                 <textarea v-model="text" placeholder="Type your tweet here...." tabindex="5"></textarea>
               </fieldset>
               <fieldset>
-                <button name="submit" type="submit" id="form-tweet-submit" @click="postTwitter">Post</button>
+                <button name="submit" type="button" id="form-tweet-submit" @click="postTwitter">Post</button>
               </fieldset>
             </br>
               <h3>Delete Tweet by Id</h3>
@@ -50,7 +50,7 @@
                 <input type="text" v-model="idtweet"  placeHolder="type your id tweet" value="">
               </fieldset>
               <fieldset>
-                <button name="submit" type="submit" id="form-tweet-submit" @click="deleteTwitter">Delete Tweet</button>
+                <button name="submit" type="button" id="form-tweet-submit" @click="deleteTwitter">Delete Tweet</button>
               </fieldset>
              </form>
 
@@ -81,21 +81,24 @@
           window.location.href = "/"
         },
         postTwitter(){
+          let self = this
           console.log('test', localStorage.getItem('token'));
-          axios.post('http://localhost:3000/api/users/twitter', {token:localStorage.getItem('token'), kata:this.text})
+          axios.post('http://localhost:3000/api/users/twitter', {kata:this.text}, { headers: {'token':localStorage.getItem('token')}})
           .then((response)=>{
-            console.log(this.text);
-            console.log(response);
+            // console.log('HASILNYA RESPONSE',response);
+            self.idtweet = response.data.id_str
           })
           .catch((err)=>{
             console.log(err);
           })
         },
         deleteTwitter(){
-          axios.post(`http://localhost:3000/api/users/twitter/${this.idtweet}`, {token:localStorage.getItem('token')} )
+          let self = this
+          axios.delete(`http://localhost:3000/api/users/twitter/${this.idtweet}`, { headers: {'token':localStorage.getItem('token')}} )
           .then((response)=>{
-            console.log(this.text);
-            console.log(response);
+            // console.log(this.text);
+            // console.log(response);
+            self.idtweet = ''
           })
           .catch((err)=>{
             console.log(err);

@@ -3,8 +3,7 @@ var jwt = require('jsonwebtoken')
 const methods = {}
 
 methods.verifyLogin = function(req,res, next){
-  console.log('sasa',req.body.token);
-  req.headers.token = req.body.token
+  // console.log('sasa',req.body.token, req.headers);
   jwt.verify(req.headers.token, 'secret', function(err, decoded){
     if(!err){
       if(decoded.username){

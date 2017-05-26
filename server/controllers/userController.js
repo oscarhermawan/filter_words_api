@@ -65,7 +65,7 @@ methods.badwords = function(req, res, next) {
 //filte
 
 methods.updateStatusTwitter = function(req,res){
-  console.log('masuk controller',req.body);
+  console.log('masuk ',req.body);
       var oauth = new OAuth.OAuth(
            'https://api.twitter.com/oauth/request_token',
            'https://api.twitter.com/oauth/access_token',
@@ -84,8 +84,8 @@ methods.updateStatusTwitter = function(req,res){
          function (err, data){
             // console.log('halooo ==>',words);
            if (err) console.error(err);
-           console.log(require('util').inspect(data));
-           res.send(JSON.parse(data));
+           let idtweet = JSON.parse(data)
+           res.send(idtweet);
          });
 }
 
