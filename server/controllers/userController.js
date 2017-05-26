@@ -62,7 +62,7 @@ methods.badwords = function(req, res, next) {
   req.body.text = words
   next()
 }
-//filter
+//filte
 
 methods.updateStatusTwitter = function(req,res){
   console.log(req.body);
